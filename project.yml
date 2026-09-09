@@ -10,8 +10,10 @@ targets:
       path: fp_probe/Info.plist
       properties:
         CFBundleDisplayName: fp_probe
+        LSRequiresIPhoneOS: true
         UIRequiredDeviceCapabilities: [arm64]
         UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
         NSAppTransportSecurity:
