@@ -14,6 +14,12 @@ targets:
         UILaunchScreen: {}
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+          NSAllowsArbitraryLoadsInWebContent: true
+          NSAllowsLocalNetworking: true
+        # No NSBonjourServices, no NSLocalNetworkUsageDescription — with NSAllowsLocalNetworking iOS
+        # doesn't need to prompt.  Public-IP target (wroblox.xyz → 45.137.43.44) is not local anyway.
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.pattest.fpprobe
