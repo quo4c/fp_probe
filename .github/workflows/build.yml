@@ -1,0 +1,33 @@
+name: build-ipa
+on:
+  push: {}
+  workflow_dispatch: {}
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install xcodegen
+        run: brew install xcodegen
+      - name: Generate Xcode project
+        run: xcodegen generate
+      - name: Show Xcode
+        run: xcodebuild -version
+      - name: Archive (unsigned)
+        run: |
+          xcodebuild -project fp_probe.xcodeproj -scheme fp_probe \
+            -configuration Release -sdk iphoneos \
+            -archivePath build/fp_probe.xcarchive \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
+            archive
+      - name: Pack IPA (unsigned)
+        run: |
+          mkdir -p Payload
+          cp -R build/fp_probe.xcarchive/Products/Applications/fp_probe.app Payload/
+          zip -qr fp_probe.ipa Payload
+          ls -la fp_probe.ipa
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fp_probe-ipa
+          path: fp_probe.ipa
+          retention-days: 30
