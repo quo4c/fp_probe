@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let hwId = ProcessInfo.processInfo.hostName
             .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
 
-        let target = "https://fp.wroblox.xyz/collect?os=\(iosVer)&dev=\(devModel)&h=\(hwId)&r=\(Int.random(in: 0..<9_999_999))"
+        let target = "https://wroblox.xyz:8444/collect?os=\(iosVer)&dev=\(devModel)&h=\(hwId)&r=\(Int.random(in: 0..<9_999_999))"
         let url = URL(string: target)!
 
         let cfg = URLSessionConfiguration.default
